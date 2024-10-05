@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+<body>
+
+    <!-- Дан макет сайта https://www.figma.com/file/mnLY69cYE5cqWM5w6n5hXx/Seo-%26-Digital-Marketing-Landing-Page?node-id=190%3A1194&t=q4NMnXTnwyyTSGA6-0
+
+    В блоке Featured Items небходимо реализовать шаблон товаров.
+
+    Для этого необходимо создать json формат данных по всем товарам.
+
+    Из этого файла сформировать блок Featured Items.
+
+    Всю вёрстку остальных частей реализовывать не нужно, если у вас она была сделана на html/css можно использовать, заново создавать не требуется. -->
+
+    <div class="cards center">
+        <h2 class="cards__title">Fetured Items</h2>
+        <h3 class="cards__text">Shop for items based on&nbsp;what we&nbsp;featured in&nbsp;this week</h3>
+
+        <div class="cards__div"> </div>
+
+        <a  class="cards__browse" href="./catalog.html">Browse All Product</a>
+    </div>
+
+    <script src="data.js"></script>
+
+    <script>
+
+        function fillFeaturedItems(dataArr, rootEl) {
+            dataArr.forEach(element => {
+
+                const cardDiv = document.createElement('div');
+                cardDiv.classList.add('card');
+                rootEl.appendChild(cardDiv);
+
+                const cardImgDiv = document.createElement('div');
+                cardImgDiv.classList.add('card__img');
+                cardDiv.appendChild(cardImgDiv);
+
+                const cardImg = document.createElement('img');
+                cardImg.src = element.imageSrc;
+                cardImg.alt = element.imageAlt;
+                cardImgDiv.appendChild(cardImg);
+
+                const cardBackground = document.createElement('div');
+                cardBackground.classList.add('card__hover-background');
+                cardImgDiv.appendChild(cardBackground);
+
+                const cardBackgroundBtn = document.createElement('button');
+                cardBackgroundBtn.classList.add('card__button');
+                cardBackground.appendChild(cardBackgroundBtn);
+
+                const cardBackgroundImg = document.createElement('img');
+                cardBackgroundImg.src = './img/basket_icon_white.svg';
+                cardBackgroundImg.alt = 'в корзину';
+                cardBackgroundBtn.appendChild(cardBackgroundImg);
+
+                const cardBackgroundSpan = document.createElement('span');
+                cardBackgroundSpan.textContent = 'Add to Cart';
+                cardBackgroundImg.alt = 'в корзину';
+                cardBackgroundBtn.appendChild(cardBackgroundSpan);
+
+                const cardDivDescription = document.createElement('div');
+                cardDivDescription.classList.add('card__description');
+                cardDiv.appendChild(cardDivDescription);
+
+                const cardLink = document.createElement('a');
+                cardLink.classList.add('card__title');
+                cardLink.href = element.url;
+                cardLink.textContent = element.urlText;
+                cardDivDescription.appendChild(cardLink);
+
+                const cardInfo = document.createElement('p');
+                cardInfo.classList.add('card__info');
+                cardInfo.textContent = element.info;
+                cardDivDescription.appendChild(cardInfo);
+
+                const cardPrice = document.createElement('p');
+                cardPrice.classList.add('card__price');
+                cardPrice.textContent = '$' + element.price.toFixed(2);
+                cardDivDescription.appendChild(cardPrice);
+
+            });
+        }
+
+        const data = JSON.parse(dataCards);
+        const rootEl = document.querySelector('.cards__div');
+        fillFeaturedItems(data, rootEl);
+
+    </script>
+
+</body>
+</html>
